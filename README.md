@@ -5,7 +5,7 @@
 ```jsx
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
-import withAuth, { Provider as AuthProvider } from '{AuthHOC-path}';
+import withAuth, { Provider as AuthProvider } from 'react-native-firebase-auth-hoc';
 import Home from './Home';
 
 function FacebookButton({ title, onPress }) {
@@ -65,7 +65,7 @@ export default App;
 ### Options
 
 ```javascript
- emailConfig?: {
+emailConfig?: {
     title?: string;
     renderButton?: Button;
   } | null;
@@ -75,12 +75,12 @@ export default App;
   } | null;
   facebookConfig?: {
     title?: string;
-    getToken: () => Promise<string>;
+    getToken: () => Promise<string | undefined>;
     renderButton?: Button;
   };
   googleConfig?: {
     title?: string;
-    getToken: () => Promise<string>;
+    getToken: () => Promise<string | undefined>;
     renderButton?: Button;
   };
   logoConfig?: {
