@@ -1,6 +1,6 @@
 {
   "name": "react-native-firebase-auth-hoc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "RN Auth-HOC",
   "main": "./dist/index.js",
   "repository": {
@@ -15,8 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^5.4.1-0",
-    "react": "^16.4.2",
-    "react-native": "^0.56.0",
+    "react": "16.3.1",
+    "react-native": "~0.55.2",
     "react-navigation": "^2.12.1"
   },
   "devDependencies": {
