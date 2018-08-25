@@ -32,7 +32,7 @@ async function getExpoFacebookToken() {
   }
 }
 
-const HomeHOC = withAuth(Home, {
+const HomeWithHOC = withAuth(Home, {
   emailConfing: null, // Disable Email Login
   facebookConfig: {
     title: 'FACEBOOK LOGIN',
@@ -51,7 +51,7 @@ class App extends React.Component {
   render() {
     return (
       <AuthProvider>
-        <HomeHOC />
+        <HomeWithHOC />
       </AuthProvider>
     );
   }
