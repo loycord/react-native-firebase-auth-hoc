@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    //   "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react-native",
+    "lib": ["es2015"],
+    "types": ["react", "react-native", "react-navigation"]
+  },
+  "include": ["./**/*"]
+}
