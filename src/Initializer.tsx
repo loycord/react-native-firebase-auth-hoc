@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { Animated, StyleSheet, Text, View } from "react-native";
 
 interface Props {
   initialize: boolean;
@@ -43,7 +43,11 @@ export default class Initializer extends React.PureComponent<Props, State> {
     if (this.state.hide) return null;
     return (
       <Animated.View
-        style={[styles.container, { opacity: this.state.fadeAnim }, this.props.style]}
+        style={[
+          styles.container,
+          { opacity: this.state.fadeAnim },
+          this.props.style
+        ]}
       >
         {(this.props.renderInitializer && this.props.renderInitializer()) || (
           <View style={styles.default}>
@@ -57,9 +61,9 @@ export default class Initializer extends React.PureComponent<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
+    position: "absolute",
+    width: "100%",
+    height: "100%",
     top: 0,
     left: 0,
     right: 0,
@@ -67,12 +71,12 @@ const styles = StyleSheet.create({
   },
   default: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#7F8489'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#7F8489"
   },
   text: {
     fontSize: 18,
-    color: '#043b40'
+    color: "#043b40"
   }
 });

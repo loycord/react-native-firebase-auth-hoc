@@ -1,6 +1,7 @@
-import * as React from 'react';
-import * as firebase from 'firebase';
-import Context, { initialState, State } from './context';
+import * as React from "react";
+import * as firebase from "firebase";
+import { Provider as LoadingProvider } from "react-native-loading-hoc";
+import Context, { initialState, State } from "./context";
 
 interface Props {
   children: React.ReactChild;
@@ -24,7 +25,9 @@ class Provider extends React.Component<Props, State> {
       signInWithEmailAndPassword: this.signInWithEmailAndPassword.bind(this),
       signInWithFacebook: this.signInWithFacebook.bind(this),
       signInWithGoogle: this.signInWithGoogle.bind(this),
-      createUserWithEmailAndPassword: this.createUserWithEmailAndPassword.bind(this)
+      createUserWithEmailAndPassword: this.createUserWithEmailAndPassword.bind(
+        this
+      )
     };
 
     this.init = this.init.bind(this);
@@ -35,7 +38,10 @@ class Provider extends React.Component<Props, State> {
   }
 
   async init() {
-    const result = await Promise.all([this.wait(1000), this.onAuthStateChanged()]);
+    const result = await Promise.all([
+      this.wait(1000),
+      this.onAuthStateChanged()
+    ]);
     const user = result[1];
 
     if (user) {
@@ -70,7 +76,9 @@ class Provider extends React.Component<Props, State> {
 
   async signInWithEmailAndPassword(email: string, password: string) {
     try {
-      await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password);
+      await firebase
+        .auth()
+        .signInAndRetrieveDataWithEmailAndPassword(email, password);
       this.signIn();
     } catch (err) {
       this.handleSignError(err);
@@ -113,7 +121,7 @@ class Provider extends React.Component<Props, State> {
   public render() {
     return (
       <Context.Provider value={this.state}>
-        {this.props.children}
+        <LoadingProvider>{this.props.children}</LoadingProvider>
       </Context.Provider>
     );
   }

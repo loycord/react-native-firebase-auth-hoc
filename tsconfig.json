@@ -4,11 +4,12 @@
     //   "sourceMap": true,
     "noImplicitAny": true,
     "module": "commonjs",
+    "declaration": true,
     "target": "es5",
     "jsx": "react-native",
     "lib": ["es2015"],
     "types": ["react", "react-native", "react-navigation"]
   },
-  "include": ["./**/*"],
+  "include": ["./src/**/*"],
   "exclude": ["./test"]
 }

@@ -1,7 +1,7 @@
-import * as React from 'react';
-import Context from './context';
-import FirebaseLogin from './root';
-import Initializer from './Initializer';
+import * as React from "react";
+import Context from "./context";
+import FirebaseLogin from "./root";
+import Initializer from "./Initializer";
 
 type ButtonProps = {
   title: string;
@@ -21,12 +21,12 @@ export interface Options {
   } | null;
   facebookConfig?: {
     title?: string;
-    getToken: () => Promise<string | undefined>;
+    getToken: () => Promise<any>;
     renderButton?: Button;
   };
   googleConfig?: {
     title?: string;
-    getToken: () => Promise<string | undefined>;
+    getToken: () => Promise<any>;
     renderButton?: Button;
   };
   logoConfig?: {
@@ -45,15 +45,15 @@ export interface Options {
   buttonStyle?: {};
 }
 
-const initialOptions = {
+const initialOptions: Options = {
   emailConfig: {
-    title: 'Email Sign In'
+    title: "Email Sign In"
   },
   anonymousConfig: {
-    title: 'Skip Login'
+    title: "Skip Login"
   },
   logoConfig: {
-    title: 'LOGO'
+    title: "LOGO"
   }
 };
 
@@ -75,7 +75,10 @@ function withAuth(
                   screenProps={{ ...this.props, auth: { ...auth, options } }}
                 />
               )}
-              <Initializer {...options.initializerConfig} initialize={auth.initialize} />
+              <Initializer
+                {...options.initializerConfig}
+                initialize={auth.initialize}
+              />
             </React.Fragment>
           )}
         </Context.Consumer>

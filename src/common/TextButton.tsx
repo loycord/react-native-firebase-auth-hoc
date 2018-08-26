@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import * as React from "react";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 interface Props {
   onPress: () => void;
@@ -22,16 +22,10 @@ export default class extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    minWidth: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#20a69a',
     margin: 8
   },
   text: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16
   }
 });
