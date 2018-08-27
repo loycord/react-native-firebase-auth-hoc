@@ -51,7 +51,6 @@ class LoginScreen extends React.PureComponent<Props, State> {
   }
 
   render() {
-    console.log(this.props);
     if (this.state.startAnim) {
       this.animate();
     }
