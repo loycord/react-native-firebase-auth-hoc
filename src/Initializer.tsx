@@ -20,7 +20,7 @@ export default class Initializer extends React.PureComponent<Props, State> {
     super(props);
     this.state = {
       fadeAnim: new Animated.Value(1),
-      hide: false
+      hide: this.props.initialize
     };
   }
 

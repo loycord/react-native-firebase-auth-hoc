@@ -1,6 +1,6 @@
 {
   "name": "react-native-firebase-auth-hoc",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "RN Auth-HOC",
   "main": "./dist/index.js",
   "repository": {
@@ -12,7 +12,7 @@
     "clean": "rm -r dist",
     "format": "prettier --write \"src/**/*.ts\", \"src/**/*.tsx\"",
     "format:check": "prettier --list-different \"src/**/*.ts\", \"src/**/*.tsx\"",
-    "cp to test": "cp -R ./src ./test"
+    "copy": "cp -R ./src ./test"
   },
   "author": "Seung Yeon Kim <loycord.ceo@gmail.com> (https://loycord.com)",
   "license": "ISC",
