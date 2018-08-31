@@ -57,9 +57,9 @@ export default App;
 
 ### Props
 
-| property          | description   |
-| ----------------- | ------------- |
-| [onInit](#onInit) | firebase.user |
+| property          | description                                                                  |
+| ----------------- | ---------------------------------------------------------------------------- |
+| [onInit](#onInit) | Functions executed at initialization and updating of custom user information |
 
 #### onInit
 
