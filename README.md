@@ -57,15 +57,15 @@ export default App;
 
 ### Props
 
-| property          | description                                                                  |
-| ----------------- | ---------------------------------------------------------------------------- |
-| [onInit](#onInit) | Functions executed at initialization and updating of custom user information |
+| property          | description                                                                   |
+| ----------------- | ----------------------------------------------------------------------------- |
+| [onInit](#oninit) | Functions executed at initialization and updating of custom user information. |
 
 #### onInit
 
-| NAME    | TYPE    | REQUIRED | DESCRIPTION                               |
-| ------- | ------- | -------- | ----------------------------------------- |
-| promise | Promise | Yes      | Promise to return user information to add |
+| NAME    | TYPE    | REQUIRED | DESCRIPTION                                |
+| ------- | ------- | -------- | ------------------------------------------ |
+| promise | Promise | Yes      | Promise to return user information to add. |
 
 # withAuth
 
@@ -122,12 +122,12 @@ buttonStyle?: {};
 
 | methods                                                           | description                                                             |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| [signIn](#signIn)                                                 | Change to login status.                                                 |
-| [signOut](#signOut)                                               | Change to logout status.                                                |
-| [signInAnonymously](#signInAnonymously)                           | Asynchronously signs in as an anonymous user.                           |
-| [signInWithFacebook](#signInWithFacebook)                         | You can log in to Facebook via a promise function that returns a token. |
-| [signInWithGoogle](#signInWithGoogle)                             | You can log in to Google via a promise function that returns a token.   |
-| [createUserWithEmailAndPassword](#createUserWithEmailAndPassword) | Asynchronously signs in using an email and password.                    |
+| [signIn](#signin)                                                 | Change to login status.                                                 |
+| [signOut](#signout)                                               | Change to logout status.                                                |
+| [signInAnonymously](#signinanonymously)                           | Asynchronously signs in as an anonymous user.                           |
+| [signInWithFacebook](#signinwithfacebook)                         | You can log in to Facebook via a promise function that returns a token. |
+| [signInWithGoogle](#signinwithgoogle)                             | You can log in to Google via a promise function that returns a token.   |
+| [createUserWithEmailAndPassword](#createuserwithemailandpassword) | Asynchronously signs in using an email and password.                    |
 
 #### signIn()
 
