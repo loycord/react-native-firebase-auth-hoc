@@ -116,7 +116,7 @@ class LoginScreen extends React.PureComponent<Props, State> {
 
     const { loading } = this.props;
 
-    let buttons = [];
+    let buttons: any[] = [];
     if (emailConfig) {
       const props = {
         title: emailConfig.title || "Email Login",

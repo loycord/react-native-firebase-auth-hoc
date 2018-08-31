@@ -4,41 +4,24 @@
 
 ```jsx
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 import withAuth, { Provider as AuthProvider } from 'react-native-firebase-auth-hoc';
-import Home from './Home';
 
-function FacebookButton({ title, onPress }) {
+function Home({ auth }) {
   return (
-    <TouchableOpacity
-      style={{ padding: 10, margin: 10, backgroundColor: '#3B5998' }}
-      onPress={onPress}
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
     >
-      <Text>{title}</Text>
-    </TouchableOpacity>
+      <Text>{JSON.stringify(auth.user)}</Text>
+    </View>
   );
 }
 
-async function getExpoFacebookToken() {
-  const response = await Expo.Facebook.logInWithReadPermissionsAsync(FACEBOOK_APP_ID, {
-    permissions: ['public_profile', 'email'],
-    behavior: 'web'
-  });
-
-  if (response.type === 'success') {
-    return response.token;
-  } else {
-    throw new Error('Expo Error');
-  }
-}
-
 const HomeWithHOC = withAuth(Home, {
-  emailConfing: null, // Disable Email Login
-  facebookConfig: {
-    title: 'FACEBOOK LOGIN',
-    getToken: getExpoFacebookToken,
-    button: props => <FacebookButton {...props} />
-  },
   style: {
     backgroundColor: '#fdfdfd'
   },
@@ -50,7 +33,15 @@ const HomeWithHOC = withAuth(Home, {
 class App extends React.Component {
   render() {
     return (
-      <AuthProvider>
+      <AuthProvider
+        onInit={uid =>
+          new Promise(r => {
+            setTimeout(() => {
+              r({ age: 30, gender: 'male' });
+            }, 500);
+          })
+        }
+      >
         <HomeWithHOC />
       </AuthProvider>
     );
@@ -60,52 +51,85 @@ class App extends React.Component {
 export default App;
 ```
 
+# Provider
+
+## Reference
+
+### Props
+
+| property          | description   |
+| ----------------- | ------------- |
+| [onInit](#onInit) | firebase.user |
+
+#### onInit
+
+| NAME    | TYPE    | REQUIRED | DESCRIPTION                               |
+| ------- | ------- | -------- | ----------------------------------------- |
+| promise | Promise | Yes      | Promise to return user information to add |
+
+# withAuth
+
 ## Reference
 
 ### Options
 
 ```javascript
-emailConfig?: {
-    title?: string;
-    renderButton?: Button;
-  } | null;
-  anonymousConfig?: {
-    title?: string;
-    renderButton?: Button;
-  } | null;
-  facebookConfig?: {
-    title?: string;
-    getToken: () => Promise<string | undefined>;
-    renderButton?: Button;
-  };
-  googleConfig?: {
-    title?: string;
-    getToken: () => Promise<string | undefined>;
-    renderButton?: Button;
-  };
-  logoConfig?: {
-    title?: string;
-    style?: {};
-    renderLogo?: () => Element;
-  };
-  initializerConfig?: {
-    text?: string;
-    style?: {};
-    duration?: number;
-    renderInitializer?: () => Element;
-  };
-  renderLoginBackScreen?: () => Element;
-  style?: {};
-  buttonStyle?: {};
+withAuth((Component: React.ComponentClass<any>), (options: Options = initialOptions));
 ```
+
+```javascript
+emailConfig?: {
+  title?: string;
+  renderButton?: Button;
+} | null;
+anonymousConfig?: {
+  title?: string;
+  renderButton?: Button;
+} | null;
+facebookConfig?: {
+  title?: string;
+  getToken: () => Promise<string | undefined>;
+  renderButton?: Button;
+};
+googleConfig?: {
+  title?: string;
+  getToken: () => Promise<string | undefined>;
+  renderButton?: Button;
+};
+logoConfig?: {
+  title?: string;
+  style?: {};
+  renderLogo?: () => Element;
+};
+initializerConfig?: {
+  text?: string;
+  style?: {};
+  duration?: number;
+  renderInitializer?: () => Element;
+};
+renderLoginBackScreen?: () => Element;
+style?: {};
+buttonStyle?: {};
+```
+
+### Property
+
+| property | description   |
+| -------- | ------------- |
+| user     | firebase.user |
 
 ### Methods
 
-**this.props.auth**
+| methods                                                           | description                                                             |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [signIn](#signIn)                                                 | Change to login status.                                                 |
+| [signOut](#signOut)                                               | Change to logout status.                                                |
+| [signInAnonymously](#signInAnonymously)                           | Asynchronously signs in as an anonymous user.                           |
+| [signInWithFacebook](#signInWithFacebook)                         | You can log in to Facebook via a promise function that returns a token. |
+| [signInWithGoogle](#signInWithGoogle)                             | You can log in to Google via a promise function that returns a token.   |
+| [createUserWithEmailAndPassword](#createUserWithEmailAndPassword) | Asynchronously signs in using an email and password.                    |
 
 #### signIn()
-
-Change to login status.
 
 ```javascript
 signIn();
@@ -115,8 +139,6 @@ signIn();
 
 #### signOut()
 
-Change to logout status.
-
 ```javascript
 signOut();
 ```
@@ -124,8 +146,6 @@ signOut();
 ---
 
 #### signInAnonymously()
-
-Anonymous sign in.
 
 ```javascript
 signInAnonymously();
@@ -135,7 +155,13 @@ signInAnonymously();
 
 #### signInWithFacebook()
 
-You can log in to Facebook via a promise function that returns a token.
+```javascript
+signInWithFacebook: (promise: () => Promise<string>) => Promise<any>;
+```
+
+| NAME    | TYPE    | REQUIRED | DESCRIPTION                        |
+| ------- | ------- | -------- | ---------------------------------- |
+| promise | Promise | Yes      | Promise to return a Facebook token |
 
 ```javascript
 async function getExpoFacebookToken() {
@@ -158,7 +184,13 @@ signInWithFacebook(getExpoFacebookToken);
 
 #### signInWithGoogle()
 
-You can log in to Google via a promise function that returns a token.
+```javascript
+signInWithGoogle: (promise: () => Promise<string>) => Promise<any>;
+```
+
+| NAME    | TYPE    | REQUIRED | DESCRIPTION                      |
+| ------- | ------- | -------- | -------------------------------- |
+| promise | Promise | Yes      | Promise to return a Google token |
 
 ```javascript
 async function getExpoGoogleToken() {
@@ -183,5 +215,10 @@ signInWithGoogle(getExpoGoogleToken);
 #### createUserWithEmailAndPassword()
 
 ```javascript
-createUserWithEmailAndPassword(email, password);
+createUserWithEmailAndPassword: (email: string, password: string) => Promise<any>;
 ```
+
+| NAME     | TYPE   | REQUIRED | DESCRIPTION |
+| -------- | ------ | -------- | ----------- |
+| email    | string | Yes      | email       |
+| password | string | Yes      | password    |

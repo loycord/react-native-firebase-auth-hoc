@@ -5,6 +5,7 @@ import Context, { initialState, State } from "./context";
 
 interface Props {
   children: React.ReactChild;
+  onInit?: (uid: string) => Promise<{}>;
 }
 
 class Provider extends React.Component<Props, State> {
@@ -12,7 +13,10 @@ class Provider extends React.Component<Props, State> {
   signOut: () => void;
   constructor(props: any) {
     super(props);
-    this.signIn = () => this.setState({ isLoggedIn: true });
+    this.signIn = () => {
+      const user = firebase.auth().currentUser;
+      this.setState({ user, isLoggedIn: true });
+    };
     this.signOut = async () => {
       await firebase.auth().signOut();
       this.setState({ isLoggedIn: false });
@@ -42,10 +46,14 @@ class Provider extends React.Component<Props, State> {
       this.wait(1000),
       this.onAuthStateChanged()
     ]);
-    const user = result[1];
+    let user = result[1];
 
     if (user) {
-      this.setState({ initialize: true, isLoggedIn: true });
+      if (this.props.onInit) {
+        const customUser = await this.props.onInit(user.uid);
+        user = { ...user, ...customUser };
+      }
+      this.setState({ user, initialize: true, isLoggedIn: true });
     } else {
       this.setState({ initialize: true });
     }
@@ -55,7 +63,7 @@ class Provider extends React.Component<Props, State> {
     return new Promise(r => setTimeout(() => r(), ms));
   }
 
-  onAuthStateChanged() {
+  onAuthStateChanged(): Promise<firebase.User | null> {
     return new Promise(r => {
       firebase.auth().onAuthStateChanged((user: any) => r(user));
     });
@@ -85,9 +93,9 @@ class Provider extends React.Component<Props, State> {
     }
   }
 
-  async signInWithFacebook(callback: () => Promise<string>) {
+  async signInWithFacebook(promise: () => Promise<string>) {
     try {
-      const token = await callback();
+      const token = await promise();
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
       await firebase.auth().signInAndRetrieveDataWithCredential(credential);
       this.signIn();
@@ -96,9 +104,9 @@ class Provider extends React.Component<Props, State> {
     }
   }
 
-  async signInWithGoogle(callback: () => Promise<string>) {
+  async signInWithGoogle(promise: () => Promise<string>) {
     try {
-      const token = await callback();
+      const token = await promise();
       const credential = firebase.auth.GoogleAuthProvider.credential(token);
       await firebase.auth().signInAndRetrieveDataWithCredential(credential);
       this.signIn();
