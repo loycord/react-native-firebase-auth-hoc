@@ -61,15 +61,23 @@ function withAuth(
   Component: React.ComponentClass<any>,
   options: Options = initialOptions
 ) {
-  return class extends React.Component {
+  options = { ...initialOptions, ...options };
+  return class extends React.Component<{ screenProps?: any }> {
     public render() {
-      options = { ...initialOptions, ...options };
+      let screenProps = {};
+      if (this.props.screenProps) {
+        screenProps = this.props.screenProps;
+      }
       return (
         <Context.Consumer>
           {auth => (
             <React.Fragment>
               {auth.isLoggedIn ? (
-                <Component {...this.props} auth={auth} />
+                <Component
+                  {...this.props}
+                  auth={auth}
+                  screenProps={{ ...screenProps, auth }}
+                />
               ) : (
                 <FirebaseLogin
                   screenProps={{ ...this.props, auth: { ...auth, options } }}

@@ -222,3 +222,16 @@ createUserWithEmailAndPassword: (email: string, password: string) => Promise<any
 | -------- | ------ | -------- | ----------- |
 | email    | string | Yes      | email       |
 | password | string | Yes      | password    |
+
+## Support
+
+### [react-navigation](https://reactnavigation.org/)
+
+```javascript
+withAuth(createBottomTabNavigator({
+  Home: HomeScreen,
+  Settings: SettingsScreen,
+});
+
+// Home, Settings -> screenProps.auth
+```
