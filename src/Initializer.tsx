@@ -45,12 +45,11 @@ export default class Initializer extends React.PureComponent<Props, State> {
       <Animated.View
         style={[
           styles.container,
-          { opacity: this.state.fadeAnim },
-          this.props.style
+          { opacity: this.state.fadeAnim }
         ]}
       >
         {(this.props.renderInitializer && this.props.renderInitializer()) || (
-          <View style={styles.default}>
+          <View style={[styles.default, this.props.style]}>
             <Text style={styles.text}>Loading...</Text>
           </View>
         )}
