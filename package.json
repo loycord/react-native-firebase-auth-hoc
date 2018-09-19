@@ -15,7 +15,7 @@
     "copy": "cp -R ./src ./test"
   },
   "author": "Seung Yeon Kim <loycord.ceo@gmail.com> (https://loycord.com)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "firebase": "^5.4.1-0",
     "react": "16.3.1",
