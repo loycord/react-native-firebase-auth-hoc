@@ -80,20 +80,28 @@ withAuth((Component: React.ComponentClass<any>), (options: Options = initialOpti
 ```javascript
 emailConfig?: {
   title?: string;
+  style?: {};
+  textStyle?: {};
   renderButton?: Button;
 } | null;
 anonymousConfig?: {
   title?: string;
+  style?: {};
+  textStyle?: {};
   renderButton?: Button;
 } | null;
 facebookConfig?: {
   title?: string;
-  getToken: () => Promise<string | undefined>;
+  style?: {};
+  textStyle?: {};
+  getToken: () => Promise<any>;
   renderButton?: Button;
 };
 googleConfig?: {
   title?: string;
-  getToken: () => Promise<string | undefined>;
+  style?: {};
+  textStyle?: {};
+  getToken: () => Promise<any>;
   renderButton?: Button;
 };
 logoConfig?: {
@@ -109,7 +117,6 @@ initializerConfig?: {
 };
 renderLoginBackScreen?: () => Element;
 style?: {};
-buttonStyle?: {};
 ```
 
 ### Property

@@ -13,19 +13,27 @@ type Button = ({ title, onPress }: ButtonProps) => Element;
 export interface Options {
   emailConfig?: {
     title?: string;
+    style?: {};
+    textStyle?: {};
     renderButton?: Button;
   } | null;
   anonymousConfig?: {
     title?: string;
+    style?: {};
+    textStyle?: {};
     renderButton?: Button;
   } | null;
   facebookConfig?: {
     title?: string;
+    style?: {};
+    textStyle?: {};
     getToken: () => Promise<any>;
     renderButton?: Button;
   };
   googleConfig?: {
     title?: string;
+    style?: {};
+    textStyle?: {};
     getToken: () => Promise<any>;
     renderButton?: Button;
   };
@@ -42,7 +50,6 @@ export interface Options {
   };
   renderLoginBackScreen?: () => Element;
   style?: {};
-  buttonStyle?: {};
 }
 
 const initialOptions: Options = {

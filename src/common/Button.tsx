@@ -1,10 +1,12 @@
 import * as React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
+import TouchableOpacity from './TouchableOpacity';
 
 interface Props {
   onPress: () => void;
   title: string;
   style?: {};
+  textStyle?: {};
 }
 
 export default class extends React.PureComponent<Props> {
@@ -14,7 +16,7 @@ export default class extends React.PureComponent<Props> {
         style={[styles.container, this.props.style]}
         onPress={this.props.onPress}
       >
-        <Text style={styles.text}>{this.props.title}</Text>
+        <Text style={[styles.text, this.props.textStyle]}>{this.props.title}</Text>
       </TouchableOpacity>
     );
   }

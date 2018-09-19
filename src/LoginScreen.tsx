@@ -92,8 +92,12 @@ class LoginScreen extends React.PureComponent<Props, State> {
 
   renderLogo() {
     const { logoConfig } = this.props.screenProps.auth.options;
-    let title = logoConfig ? logoConfig.title : "Logo";
-    let Logo: Element = <Text style={styles.logoText}>{title}</Text>;
+    let title = logoConfig ? logoConfig.title : 'Logo';
+    const style =
+      logoConfig && logoConfig.style
+        ? [styles.logoText, logoConfig.style]
+        : styles.logoText;
+    let Logo: Element = <Text style={style}>{title}</Text>;
     if (logoConfig && logoConfig.renderLogo) {
       Logo = logoConfig.renderLogo();
     }
@@ -105,8 +109,7 @@ class LoginScreen extends React.PureComponent<Props, State> {
       emailConfig,
       facebookConfig,
       googleConfig,
-      anonymousConfig,
-      buttonStyle
+      anonymousConfig
     } = this.props.screenProps.auth.options;
     const {
       signInWithFacebook,
@@ -119,49 +122,55 @@ class LoginScreen extends React.PureComponent<Props, State> {
     let buttons: any[] = [];
     if (emailConfig) {
       const props = {
-        title: emailConfig.title || "Email Login",
-        onPress: () => this.push("EmailSignIn")
+        title: emailConfig.title || 'Email Login',
+        onPress: () => this.push('EmailSignIn'),
+        style: emailConfig.style || {},
+        textStyle: emailConfig.textStyle || {}
       };
       const button = emailConfig.renderButton ? (
         emailConfig.renderButton(props)
       ) : (
-        <Button {...props} style={buttonStyle} />
+        <Button {...props} />
       );
       buttons.push(button);
     }
 
     if (facebookConfig && facebookConfig.getToken) {
       const props = {
-        title: facebookConfig.title || "Facebook Login",
-        onPress: () =>
-          loading.apply(() => signInWithFacebook(facebookConfig.getToken))
+        title: facebookConfig.title || 'Facebook Login',
+        onPress: () => loading.apply(() => signInWithFacebook(facebookConfig.getToken)),
+        style: facebookConfig.style || {},
+        textStyle: facebookConfig.textStyle || {}
       };
       const button = facebookConfig.renderButton ? (
         facebookConfig.renderButton(props)
       ) : (
-        <Button {...props} style={buttonStyle} />
+        <Button {...props} />
       );
       buttons.push(button);
     }
 
     if (googleConfig && googleConfig.getToken) {
       const props = {
-        title: googleConfig.title || "Google Login",
-        onPress: () =>
-          loading.apply(() => signInWithGoogle(googleConfig.getToken))
+        title: googleConfig.title || 'Google Login',
+        onPress: () => loading.apply(() => signInWithGoogle(googleConfig.getToken)),
+        style: googleConfig.style || {},
+        textStyle: googleConfig.textStyle || {}
       };
       const button = googleConfig.renderButton ? (
         googleConfig.renderButton(props)
       ) : (
-        <Button {...props} style={buttonStyle} />
+        <Button {...props} />
       );
       buttons.push(button);
     }
 
     if (anonymousConfig) {
       const props = {
-        title: anonymousConfig.title || "Skip Login",
-        onPress: () => loading.apply(signInAnonymously)
+        title: anonymousConfig.title || 'Skip Login',
+        onPress: () => loading.apply(signInAnonymously),
+        style: anonymousConfig.style || {},
+        textStyle: anonymousConfig.textStyle || {}
       };
       const button = anonymousConfig.renderButton ? (
         anonymousConfig.renderButton(props)
