@@ -17,9 +17,9 @@ class Provider extends React.Component<Props, State> {
       const user = firebase.auth().currentUser;
       this.setState({ user, isLoggedIn: true });
     };
-    this.signOut = async () => {
-      await firebase.auth().signOut();
-      this.setState({ isLoggedIn: false });
+    this.signOut = () => {
+      firebase.auth().signOut();
+      this.setState({ isLoggedIn: false, user: null });
     };
     this.state = {
       ...initialState,

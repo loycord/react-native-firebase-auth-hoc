@@ -1,6 +1,6 @@
 {
   "name": "react-native-firebase-auth-hoc",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "RN Auth-HOC",
   "main": "./dist/index.js",
   "repository": {
